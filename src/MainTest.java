@@ -1,4 +1,4 @@
-import com.epam.project.tas02.airline.Airline;
+import com.epam.project.task02.airline.Airline;
 
 public class MainTest {
     public static void main(String[] args) {
