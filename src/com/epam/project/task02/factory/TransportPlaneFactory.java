@@ -5,10 +5,10 @@ import com.epam.project.task02.model.TransportPlane;
 
 public class TransportPlaneFactory extends PlaneFactory {
 
-    public Plane createPlane(String[] data) {
-        TransportPlane transportPlane = (TransportPlane) createSimplePlane(new TransportPlane(), data);
+    public Plane createPlane(String data) {
+        TransportPlane transportPlane = new TransportPlane();
 
-        int maxCargo = Integer.parseInt(data[5]);
+        int maxCargo = Integer.parseInt(data);
         transportPlane.setMaxCargo(maxCargo);
 
         return transportPlane;

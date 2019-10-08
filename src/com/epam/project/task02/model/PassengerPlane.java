@@ -37,11 +37,11 @@ public class PassengerPlane extends Plane {
 
     @Override
     public int hashCode() {
-        return super.hashCode() + getMaxPassengers();
+        return super.hashCode() + maxPassengers;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "maxPassengers= " + getMaxPassengers();
+        return super.toString() + "maxPassengers= " + maxPassengers;
     }
 }

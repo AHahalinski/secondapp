@@ -6,20 +6,18 @@ import com.epam.project.task02.factory.PlaneFactory;
 import com.epam.project.task02.factory.TransportPlaneFactory;
 import com.epam.project.task02.model.Plane;
 import com.epam.project.task02.model.PlaneType;
+import com.epam.project.task02.validator.Validator;
 
 public class Creator {
 
     private static final String REGEX_SPLIT = ";\\s+";
 
     public Plane getPlane(String data) {
-        if (data == null) {
-            return null;
-        }
+        Validator.isNullArgument(data);
 
         String[] splitDataStrings = data.split(REGEX_SPLIT);
         String type = splitDataStrings[0];
 
-        Plane planeCreated;
         PlaneType planeType = PlaneType.valueOf(type);
 
         PlaneFactory planeFactory;
@@ -35,8 +33,6 @@ public class Creator {
                 throw new TypePlaneNotCorrectHandlerException("There isn't type of plane '" + type + "'");
         }
 
-        planeCreated = planeFactory.createPlane(splitDataStrings);
-
-        return planeCreated;
+        return planeFactory.getPlane(splitDataStrings);
     }
 }

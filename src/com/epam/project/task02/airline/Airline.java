@@ -1,21 +1,23 @@
 package com.epam.project.task02.airline;
 
-import com.epam.project.task02.comparator.*;
-import com.epam.project.task02.loader.Loader;
+import com.epam.project.task02.comparator.ComparatorPlaneMaxDistance;
+import com.epam.project.task02.comparator.ComparatorPlaneFuelConsumption;
+import com.epam.project.task02.comparator.ComparatorPlaneName;
+import com.epam.project.task02.comparator.ComparatorPlaneSpeed;
+import com.epam.project.task02.comparator.ComparatorPlaneType;
 import com.epam.project.task02.model.Plane;
 
-import java.util.*;
+import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
+
 
 public class Airline {
     private static Airline airline;
     private static List<Plane> planes;
     private String nameCompany;
-
-
-    static {
-        planes = Loader.loadData();
-    }
 
     private Airline(String nameCompany) {
         this.nameCompany = nameCompany;

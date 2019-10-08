@@ -29,18 +29,18 @@ public class TransportPlane extends Plane {
     public boolean equals(Object o) {
         if (super.equals(o) && o.getClass() == getClass()) {
             TransportPlane that = (TransportPlane) o;
-            return getMaxCargo() == that.getMaxCargo();
+            return maxCargo == that.maxCargo;
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() * 3 + getMaxCargo();
+        return super.hashCode() * 3 + maxCargo;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "maxCargo= " + getMaxCargo();
+        return super.toString() + "maxCargo= " + maxCargo;
     }
 }

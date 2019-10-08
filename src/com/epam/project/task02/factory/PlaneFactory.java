@@ -2,13 +2,14 @@ package com.epam.project.task02.factory;
 
 import com.epam.project.task02.model.Plane;
 import com.epam.project.task02.model.PlaneType;
+import com.epam.project.task02.validator.Validator;
 
 public abstract class PlaneFactory {
 
-    final Plane createSimplePlane(Plane plane, String[] stringData) {
-        if (stringData == null || plane == null) {
-            return null;
-        }
+    public final Plane getPlane(String[] stringData) {
+        Validator.isNullArgument(stringData);
+
+        Plane plane = createPlane(stringData[5]);
 
         String type = stringData[0];
         PlaneType planeType = PlaneType.valueOf(type);
@@ -28,5 +29,5 @@ public abstract class PlaneFactory {
         return plane;
     }
 
-    public abstract Plane createPlane(String[] stringData);
+    public abstract Plane createPlane(String string);
 }

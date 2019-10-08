@@ -69,11 +69,11 @@ public abstract class Plane {
 
         Plane plane = (Plane) o;
 
-        return getMaxDistance() == plane.getMaxDistance() &&
-                getSpeed() == plane.getSpeed() &&
-                plane.getFuelConsumption() == getFuelConsumption() &&
-                getType() == plane.getType() &&
-                getBoardName().equals(plane.getBoardName());
+        return maxDistance == plane.maxDistance &&
+                speed == plane.speed &&
+                fuelConsumption == plane.fuelConsumption &&
+                type == plane.type &&
+                boardName.equals(plane.boardName);
     }
 
     @Override
@@ -81,11 +81,11 @@ public abstract class Plane {
         int prime = 31;
         int result = 1;
 
-        result = result + prime * getType().hashCode();
-        result = result * prime + getBoardName().hashCode();
-        result = result * prime + getMaxDistance();
-        result = result * prime + getSpeed();
-        result = result * prime + getFuelConsumption();
+        result = result + prime * type.hashCode();
+        result = result * prime + boardName.hashCode();
+        result = result * prime + maxDistance;
+        result = result * prime + speed;
+        result = result * prime + fuelConsumption;
 
         return result;
     }

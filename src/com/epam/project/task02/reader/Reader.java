@@ -2,6 +2,7 @@ package com.epam.project.task02.reader;
 
 import com.epam.project.task02.exception.ErrorCreateIOStreamHandlerException;
 import com.epam.project.task02.exception.FileNotExistHandlerException;
+import com.epam.project.task02.validator.Validator;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,22 +14,28 @@ import java.util.stream.Stream;
 
 public class Reader {
 
-    public static List<String> read(String path) throws FileNotExistHandlerException {
+    public static List<String> read(String path) {
+        Validator.isNullArgument(path);
 
         File file = new File(path);
 
-        if (file.exists() & file.isFile()) {
-            String absolutePathPath = file.getAbsolutePath();
-            Stream<String> lineStream = null;
-            try {
-                lineStream = Files.lines(Paths.get(absolutePathPath));
-            } catch (IOException e) {
-                throw new ErrorCreateIOStreamHandlerException(e);
-            }
-
-            return lineStream.collect(Collectors.toList());
-        } else {
-            throw new FileNotExistHandlerException("File not exist");
+        if (!file.exists() || !file.isFile()) {
+            throw new FileNotExistHandlerException("File" + file.getAbsolutePath() + " not exist");
         }
+
+        String absolutePathPath = file.getAbsolutePath();
+        Stream<String> lineStream = null;
+        try {
+            lineStream = Files.lines(Paths.get(absolutePathPath));
+        } catch (IOException e) {
+            throw new ErrorCreateIOStreamHandlerException(e);
+        } finally {
+            if(lineStream != null) {
+                lineStream.close();
+            }
+        }
+
+        return lineStream.collect(Collectors.toList());
+
     }
 }
