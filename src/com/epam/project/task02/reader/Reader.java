@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class Reader {
 
     public static List<String> read(String path) {
-        Validator.isNullArgument(path);
+        Validator.isNotNullArgument(path);
 
         File file = new File(path);
 
@@ -29,10 +29,6 @@ public class Reader {
             lineStream = Files.lines(Paths.get(absolutePathPath));
         } catch (IOException e) {
             throw new ErrorCreateIOStreamHandlerException(e);
-        } finally {
-            if(lineStream != null) {
-                lineStream.close();
-            }
         }
 
         return lineStream.collect(Collectors.toList());

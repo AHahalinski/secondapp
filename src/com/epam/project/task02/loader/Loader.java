@@ -10,16 +10,15 @@ import java.util.List;
 
 public class Loader {
 
-    private static final String PATH = "resources/airlineData.txt";
-
-    public static List<Plane> loadData() {
-        List<String> dataFromFile = Reader.read(PATH);
+    public static List<Plane> loadData(String pathData) {
+        Validator.isNotNullArgument(pathData);
+        List<String> dataFromFile = Reader.read(pathData);
 
         List<Plane> planes = new ArrayList<>();
 
         for (String str : dataFromFile) {
-            if (Validator.isValid(str)) {
-                Plane plane = new Creator().getPlane(str);
+            if (Validator.isValidString(str)) {
+                Plane plane = new Creator().createPlane(str);
                 planes.add(plane);
             }
         }

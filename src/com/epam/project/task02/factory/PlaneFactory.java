@@ -7,7 +7,7 @@ import com.epam.project.task02.validator.Validator;
 public abstract class PlaneFactory {
 
     public final Plane getPlane(String[] stringData) {
-        Validator.isNullArgument(stringData);
+        Validator.isNotNullArgument(stringData);
 
         Plane plane = createPlane(stringData[5]);
 

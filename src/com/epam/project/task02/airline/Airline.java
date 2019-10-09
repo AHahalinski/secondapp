@@ -6,6 +6,9 @@ import com.epam.project.task02.comparator.ComparatorPlaneName;
 import com.epam.project.task02.comparator.ComparatorPlaneSpeed;
 import com.epam.project.task02.comparator.ComparatorPlaneType;
 import com.epam.project.task02.model.Plane;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Collections;
@@ -13,11 +16,12 @@ import java.util.Comparator;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
-
 public class Airline {
     private static Airline airline;
     private static List<Plane> planes;
     private String nameCompany;
+
+    private static final Logger LOGGER = LogManager.getLogger(Airline.class.getName());
 
     private Airline(String nameCompany) {
         this.nameCompany = nameCompany;
@@ -27,6 +31,7 @@ public class Airline {
         if (airline == null) {
             airline = new Airline(nameCompany);
         }
+        LOGGER.info( "Create 'Airline'");
         return airline;
     }
 

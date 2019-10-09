@@ -12,15 +12,20 @@ public class Creator {
 
     private static final String REGEX_SPLIT = ";\\s+";
 
-    public Plane getPlane(String data) {
-        Validator.isNullArgument(data);
+    public Plane createPlane(String data) {
+        Validator.isNotNullArgument(data);
 
         String[] splitDataStrings = data.split(REGEX_SPLIT);
         String type = splitDataStrings[0];
 
-        PlaneType planeType = PlaneType.valueOf(type);
+        PlaneType planeType;
+        try {
+            planeType = PlaneType.valueOf(type);
+        } catch (IllegalArgumentException e) {
+            throw new TypePlaneNotCorrectHandlerException(type + "of plane isn't correct" , e);
+        }
 
-        PlaneFactory planeFactory;
+        PlaneFactory planeFactory = null;
 
         switch (planeType) {
             case PASSENGER_PLANE:
@@ -29,8 +34,6 @@ public class Creator {
             case TRANSPORT_PLANE:
                 planeFactory = new TransportPlaneFactory();
                 break;
-            default:
-                throw new TypePlaneNotCorrectHandlerException("There isn't type of plane '" + type + "'");
         }
 
         return planeFactory.getPlane(splitDataStrings);

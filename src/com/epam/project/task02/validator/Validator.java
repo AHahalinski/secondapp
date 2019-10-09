@@ -7,7 +7,7 @@ public class Validator {
 
     private static final String REGEX_VALID_STRING_DATA = "^(\\w+(;\\s+)){2}(\\d+(;\\s+|$)){4}";
 
-    public static boolean isValid(String data) {
+    public static boolean isValidString(String data) {
                return data != null && data.matches(REGEX_VALID_STRING_DATA);
     }
 
@@ -17,7 +17,7 @@ public class Validator {
         }
     }
 
-    public static void isNullArgument(Object ob){
+    public static void isNotNullArgument(Object ob){
         if (ob == null) {
             throw new InvalidArgumentHandlerException("Argument is null");
         }
