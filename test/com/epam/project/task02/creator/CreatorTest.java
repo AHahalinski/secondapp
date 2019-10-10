@@ -58,9 +58,10 @@ public class CreatorTest {
         Assert.assertEquals(actualResult, expectedPlane);
     }
 
-    @Test (expectedExceptions = InvalidArgumentHandlerException.class)
+    @Test (expectedExceptions = NullPointerException.class)
     public void testCreatePlaneThrowExceptionInvalidArgument() {
-        Plane plane = CREATOR.createPlane(null);
+        String o = null;
+        Plane plane = CREATOR.createPlane(o);
     }
 
     @Test (expectedExceptions = TypePlaneNotCorrectHandlerException.class)

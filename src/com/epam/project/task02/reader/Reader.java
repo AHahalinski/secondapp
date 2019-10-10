@@ -2,7 +2,6 @@ package com.epam.project.task02.reader;
 
 import com.epam.project.task02.exception.ErrorCreateIOStreamHandlerException;
 import com.epam.project.task02.exception.FileNotExistHandlerException;
-import com.epam.project.task02.validator.Validator;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +13,10 @@ import java.util.stream.Stream;
 
 public class Reader {
 
-    public static List<String> read(String path) {
-        Validator.isNotNullArgument(path);
+    private Reader() {
+    }
 
+    public static List<String> read(String path) {
         File file = new File(path);
 
         if (!file.exists() || !file.isFile()) {
@@ -24,7 +24,7 @@ public class Reader {
         }
 
         String absolutePathPath = file.getAbsolutePath();
-        Stream<String> lineStream = null;
+        Stream<String> lineStream;
         try {
             lineStream = Files.lines(Paths.get(absolutePathPath));
         } catch (IOException e) {

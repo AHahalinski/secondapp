@@ -18,5 +18,9 @@ public class MainTest {
 
         System.out.println(airline +" \n");
 
+        airline.findPlanesByFuel(1000, 1500);
+        airline.sortByCargoPassengerDistance();
+        airline.sortByFuelConsumption();
+
     }
 }

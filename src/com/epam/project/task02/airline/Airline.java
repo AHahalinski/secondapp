@@ -6,21 +6,19 @@ import com.epam.project.task02.comparator.ComparatorPlaneName;
 import com.epam.project.task02.comparator.ComparatorPlaneSpeed;
 import com.epam.project.task02.comparator.ComparatorPlaneType;
 import com.epam.project.task02.model.Plane;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class Airline {
-    private static Airline airline;
-    private static List<Plane> planes;
-    private String nameCompany;
 
+    private static Airline airline;
+    private List<Plane> planes;
+    private String nameCompany;
     private static final Logger LOGGER = LogManager.getLogger(Airline.class.getName());
 
     private Airline(String nameCompany) {
@@ -31,7 +29,7 @@ public class Airline {
         if (airline == null) {
             airline = new Airline(nameCompany);
         }
-        LOGGER.info( "Create 'Airline'");
+        LOGGER.info("Create 'Airline'");
         return airline;
     }
 
@@ -49,9 +47,11 @@ public class Airline {
 
     public void setPlanes(List<Plane> planes) {
         this.planes = planes;
+        LOGGER.info("set List<Plane>");
     }
 
     public List<Plane> findPlanesByFuel(int minFuelConsumption, int maxFuelConsumption) {
+        LOGGER.info("find planes with fuel between min=" + minFuelConsumption + " and max=" + maxFuelConsumption);
         return planes.stream()
                 .filter(plane -> plane.getFuelConsumption() >= minFuelConsumption
                         && plane.getFuelConsumption() <= maxFuelConsumption)
@@ -71,31 +71,32 @@ public class Airline {
     }
 
     public void sortByType() {
-        Collections.sort(planes, new ComparatorPlaneType());
+        planes.sort(new ComparatorPlaneType());
     }
 
     public void sortByNameBord() {
-        Collections.sort(planes, new ComparatorPlaneName());
+        planes.sort(new ComparatorPlaneName());
     }
 
     public void sortByMaxDistance() {
-        Collections.sort(planes, new ComparatorPlaneMaxDistance());
+        planes.sort(new ComparatorPlaneMaxDistance());
     }
 
     public void sortBySpeed() {
-        Collections.sort(planes, new ComparatorPlaneSpeed());
+        planes.sort(new ComparatorPlaneSpeed());
     }
 
     public void sortByFuelConsumption() {
-        Collections.sort(planes, new ComparatorPlaneFuelConsumption());
+        LOGGER.info("method sortByFuelConsumption()");
+        planes.sort(new ComparatorPlaneFuelConsumption());
     }
 
-    //sorted the first by Passengers (max->min)  and Cargo (max->min) then Distance (max->min)
     public void sortByCargoPassengerDistance() {
+        LOGGER.info("method sortByCargoPassengerDistance()");
         Comparator comparator = Comparator.comparing(Plane::getCargo, Comparator.reverseOrder())
                 .thenComparing(Plane::getPassenger, Comparator.reverseOrder())
                 .thenComparing(Plane::getMaxDistance, Comparator.reverseOrder());
-        Collections.sort(planes, comparator);
+        planes.sort(comparator);
     }
 
     @Override
