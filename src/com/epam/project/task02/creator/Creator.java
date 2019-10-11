@@ -32,7 +32,8 @@ public class Creator {
 
         switch (planeType) {
             case PASSENGER_PLANE:
-                return new PassengerPlaneFactory().getPlane(splitDataStrings);
+                planeFactory = new PassengerPlaneFactory();
+                break;
             case TRANSPORT_PLANE:
                 planeFactory = new TransportPlaneFactory();
                 break;
