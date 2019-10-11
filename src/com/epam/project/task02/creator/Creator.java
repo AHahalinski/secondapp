@@ -24,7 +24,7 @@ public class Creator {
         try {
             planeType = PlaneType.valueOf(type);
         } catch (IllegalArgumentException e) {
-            logger.error(type + "of plane isn't correct", e);
+            logger.error(String.format("%sof plane isn't correct", type), e);
             throw new TypePlaneNotCorrectHandlerException(type + "of plane isn't correct", e);
         }
 

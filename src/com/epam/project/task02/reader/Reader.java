@@ -25,6 +25,7 @@ public class Reader {
         File file = new File(path);
 
         if (!file.exists() || !file.isFile()) {
+            logger.error(String.format("%s no exist", file.getName()), new FileNotExistHandlerException());
             throw new FileNotExistHandlerException("File" + file.getAbsolutePath() + " not exist");
         }
 
