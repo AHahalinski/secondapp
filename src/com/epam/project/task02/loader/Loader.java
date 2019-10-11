@@ -12,13 +12,13 @@ import java.util.List;
 
 public class Loader {
 
-    private static final Logger LOGGER = LogManager.getLogger(Loader.class.getName());
+    private static Logger logger = LogManager.getLogger(Loader.class.getName());
 
     private Loader() {
     }
 
     public static List<Plane> loadData(String pathData) {
-        LOGGER.info("Start loading data");
+        logger.info("Start loading data");
         Validator.isNotNull(pathData);
         List<String> dataFromFile = Reader.read(pathData);
 
@@ -26,12 +26,12 @@ public class Loader {
 
         for (String str : dataFromFile) {
             if (Validator.isValidString(str)) {
-                LOGGER.debug("String is valid");
+                logger.debug("String is valid");
                 Plane plane = new Creator().createPlane(str);
                 planes.add(plane);
             }
         }
-        LOGGER.info("End loading data");
+        logger.info("End loading data");
         return planes;
     }
 }

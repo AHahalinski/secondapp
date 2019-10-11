@@ -2,6 +2,8 @@ package com.epam.project.task02.reader;
 
 import com.epam.project.task02.exception.ErrorCreateIOStreamHandlerException;
 import com.epam.project.task02.exception.FileNotExistHandlerException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,10 +15,13 @@ import java.util.stream.Stream;
 
 public class Reader {
 
+    private static Logger logger = LogManager.getLogger(Reader.class.getName());
+
     private Reader() {
     }
 
     public static List<String> read(String path) {
+        logger.info("Start reading dataFile");
         File file = new File(path);
 
         if (!file.exists() || !file.isFile()) {
@@ -28,9 +33,11 @@ public class Reader {
         try {
             lineStream = Files.lines(Paths.get(absolutePathPath));
         } catch (IOException e) {
+            logger.error("Error create IOStream", e);
             throw new ErrorCreateIOStreamHandlerException(e);
         }
 
+        logger.info("File was read successful");
         return lineStream.collect(Collectors.toList());
 
     }

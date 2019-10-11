@@ -11,11 +11,11 @@ import org.apache.logging.log4j.Logger;
 
 public class Creator {
 
-    private static final Logger LOGGER = LogManager.getLogger(Creator.class.getName());
+    private static Logger logger = LogManager.getLogger(Creator.class.getName());
     private static final String REGEX_SPLIT = ";\\s+";
 
     public Plane createPlane(String data) {
-        LOGGER.debug(String.format("start creating plane (%s)", data));
+        logger.debug(String.format("start creating plane (%s)", data));
 
         String[] splitDataStrings = data.split(REGEX_SPLIT);
         String type = splitDataStrings[0];
@@ -24,7 +24,7 @@ public class Creator {
         try {
             planeType = PlaneType.valueOf(type);
         } catch (IllegalArgumentException e) {
-            LOGGER.error(type + "of plane isn't correct", e);
+            logger.error(type + "of plane isn't correct", e);
             throw new TypePlaneNotCorrectHandlerException(type + "of plane isn't correct", e);
         }
 
@@ -37,7 +37,7 @@ public class Creator {
                 planeFactory = new TransportPlaneFactory();
                 break;
         }
-        LOGGER.debug("end creating plane");
+        logger.debug("end creating plane");
 
         return planeFactory.getPlane(splitDataStrings);
     }

@@ -19,7 +19,7 @@ public class Airline {
     private static Airline airline;
     private List<Plane> planes;
     private String nameCompany;
-    private static final Logger LOGGER = LogManager.getLogger(Airline.class.getName());
+    private static Logger logger = LogManager.getLogger(Airline.class.getName());
 
     private Airline(String nameCompany) {
         this.nameCompany = nameCompany;
@@ -29,7 +29,7 @@ public class Airline {
         if (airline == null) {
             airline = new Airline(nameCompany);
         }
-        LOGGER.info("Create 'Airline'");
+        logger.info("Create 'Airline'");
         return airline;
     }
 
@@ -47,11 +47,11 @@ public class Airline {
 
     public void setPlanes(List<Plane> planes) {
         this.planes = planes;
-        LOGGER.info("set List<Plane>");
+        logger.info("set List<Plane>");
     }
 
     public List<Plane> findPlanesByFuel(int minFuelConsumption, int maxFuelConsumption) {
-        LOGGER.info("find planes with fuel between min=" + minFuelConsumption + " and max=" + maxFuelConsumption);
+        logger.info("find planes with fuel between min=" + minFuelConsumption + " and max=" + maxFuelConsumption);
         return planes.stream()
                 .filter(plane -> plane.getFuelConsumption() >= minFuelConsumption
                         && plane.getFuelConsumption() <= maxFuelConsumption)
@@ -87,12 +87,12 @@ public class Airline {
     }
 
     public void sortByFuelConsumption() {
-        LOGGER.info("method sortByFuelConsumption()");
+        logger.info("method sortByFuelConsumption()");
         planes.sort(new ComparatorPlaneFuelConsumption());
     }
 
     public void sortByCargoPassengerDistance() {
-        LOGGER.info("method sortByCargoPassengerDistance()");
+        logger.info("method sortByCargoPassengerDistance()");
         Comparator comparator = Comparator.comparing(Plane::getCargo, Comparator.reverseOrder())
                 .thenComparing(Plane::getPassenger, Comparator.reverseOrder())
                 .thenComparing(Plane::getMaxDistance, Comparator.reverseOrder());
