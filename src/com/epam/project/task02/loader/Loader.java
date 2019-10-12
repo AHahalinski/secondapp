@@ -2,6 +2,7 @@ package com.epam.project.task02.loader;
 
 import com.epam.project.task02.creator.Creator;
 import com.epam.project.task02.model.Plane;
+import com.epam.project.task02.parser.Parser;
 import com.epam.project.task02.reader.Reader;
 import com.epam.project.task02.validator.Validator;
 import org.apache.logging.log4j.LogManager;
@@ -20,14 +21,14 @@ public class Loader {
     public static List<Plane> loadData(String pathData) {
         logger.info("Start loading data");
         Validator.isNotNull(pathData);
-        List<String> dataFromFile = Reader.read(pathData);
-
+        List<String> dataFromFile = new Reader().read(pathData);
         List<Plane> planes = new ArrayList<>();
 
         for (String str : dataFromFile) {
             if (Validator.isValidString(str)) {
                 logger.debug("String is valid");
-                Plane plane = new Creator().createPlane(str);
+                String[] stringsData = Parser.getStringsPlaneParameters(str);
+                Plane plane = new Creator().createPlane(stringsData);
                 planes.add(plane);
             }
         }

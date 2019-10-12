@@ -17,10 +17,7 @@ public class Reader {
 
     private static Logger logger = LogManager.getLogger(Reader.class.getName());
 
-    private Reader() {
-    }
-
-    public static List<String> read(String path) {
+    public List<String> read(String path) {
         logger.info("Start reading dataFile");
         File file = new File(path);
 
@@ -30,16 +27,17 @@ public class Reader {
         }
 
         String absolutePathPath = file.getAbsolutePath();
-        Stream<String> lineStream;
-        try {
-            lineStream = Files.lines(Paths.get(absolutePathPath));
+        List<String> listData;
+
+        try (Stream<String> lineStream = Files.lines(Paths.get(absolutePathPath))) {
+            listData = lineStream.collect(Collectors.toList());
         } catch (IOException e) {
             logger.error("Error create IOStream", e);
             throw new ErrorCreateIOStreamHandlerException(e);
         }
 
         logger.info("File was read successful");
-        return lineStream.collect(Collectors.toList());
+        return listData;
 
     }
 }

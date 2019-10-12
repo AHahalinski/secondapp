@@ -9,25 +9,23 @@ import com.epam.project.task02.model.PlaneType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
+
 public class Creator {
 
     private static Logger logger = LogManager.getLogger(Creator.class.getName());
-    private static final String REGEX_SPLIT = ";\\s+";
 
-    public Plane createPlane(String data) {
-        logger.debug(String.format("start creating plane (%s)", data));
-
-        String[] splitDataStrings = data.split(REGEX_SPLIT);
-        String type = splitDataStrings[0];
-
+    public Plane createPlane(String[] stringsData) {
+        logger.debug(String.format("start creating plane (%s)", Arrays.toString(stringsData)));
+        String type = stringsData[0];
         PlaneType planeType;
+
         try {
             planeType = PlaneType.valueOf(type);
         } catch (IllegalArgumentException e) {
-            logger.error(String.format("%sof plane isn't correct", type), e);
+            logger.error(String.format("%s of plane isn't correct", type), e);
             throw new TypePlaneNotCorrectHandlerException(type + "of plane isn't correct", e);
         }
-
         PlaneFactory planeFactory = null;
 
         switch (planeType) {
@@ -39,7 +37,6 @@ public class Creator {
                 break;
         }
         logger.debug("end creating plane");
-
-        return planeFactory.getPlane(splitDataStrings);
+        return planeFactory.getPlane(stringsData);
     }
 }

@@ -9,6 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class AirlineTest {
@@ -44,9 +45,16 @@ public class AirlineTest {
         return new Object[][]{
                 {Arrays.asList(plane1, plane2, plane3), 1000, 1500, Arrays.asList(plane1, plane2)},
                 {Arrays.asList(plane1, plane2, plane3), 100, 5000, Arrays.asList(plane1, plane2, plane3)},
-                {Arrays.asList(plane1, plane2, plane3), 3000, 5000, Arrays.asList()}
+                {Arrays.asList(plane1, plane2, plane3), 3000, 5000, Collections.emptyList()}
         };
     }
+
+    @Test
+    public void testGetInstance() {
+        Airline airlineActual = Airline.getInstance("TestName");
+        Assert.assertEquals(airlineActual, AIRLINE);
+    }
+
 
     @Test(dataProvider = "planes")
     public void testFindPlanesByFuelMinToMax(List<Plane> planes, int minFuel, int maxFuel, List<Plane> expectedResult) {

@@ -1,6 +1,5 @@
 package com.epam.project.task02.creator;
 
-import com.epam.project.task02.exception.InvalidArgumentHandlerException;
 import com.epam.project.task02.exception.TypePlaneNotCorrectHandlerException;
 import com.epam.project.task02.model.PassengerPlane;
 import com.epam.project.task02.model.Plane;
@@ -15,8 +14,8 @@ public class CreatorTest {
     private static final Creator CREATOR = new Creator();
 
     @DataProvider(name = "stringsData")
-    private static Object[][] getStringsData(){
-        String stringDataPlane1 = "PASSENGER_PLANE; testPlane1;    1000; 900; 1000; 200";
+    private static Object[][] getStringsData() {
+        String[] stringDataPlane1 = {"PASSENGER_PLANE", "testPlane1", "1000", "900", "1000", "200"};
 
         PassengerPlane plane1 = new PassengerPlane();
         plane1.setType(PlaneType.PASSENGER_PLANE);
@@ -26,7 +25,7 @@ public class CreatorTest {
         plane1.setFuelConsumption(1000);
         plane1.setMaxPassengers(200);
 
-        String stringDataPlane2 = "PASSENGER_PLANE; testPlane2;    1500; 980; 1500; 198";
+        String[] stringDataPlane2 = {"PASSENGER_PLANE", "testPlane2", "1500", "980", "1500", "198"};
 
         PassengerPlane plane2 = new PassengerPlane();
         plane2.setType(PlaneType.PASSENGER_PLANE);
@@ -36,7 +35,7 @@ public class CreatorTest {
         plane2.setFuelConsumption(1500);
         plane2.setMaxPassengers(198);
 
-        String stringDataPlane3 = "TRANSPORT_PLANE; testPlane3;    5000; 780; 2600; 2500";
+        String[] stringDataPlane3 = {"TRANSPORT_PLANE", "testPlane3", "5000", "780", "2600", "2500"};
 
         TransportPlane plane3 = new TransportPlane();
         plane3.setType(PlaneType.TRANSPORT_PLANE);
@@ -52,21 +51,22 @@ public class CreatorTest {
                 {stringDataPlane3, plane3}
         };
     }
-    @Test (dataProvider = "stringsData")
-    public void testCreatePlanePositive(String string, Plane expectedPlane) {
+
+    @Test(dataProvider = "stringsData")
+    public void testCreatePlanePositive(String[] string, Plane expectedPlane) {
         Plane actualResult = CREATOR.createPlane(string);
         Assert.assertEquals(actualResult, expectedPlane);
     }
 
-    @Test (expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = NullPointerException.class)
     public void testCreatePlaneThrowExceptionInvalidArgument() {
-        String o = null;
+        String[] o = null;
         Plane plane = CREATOR.createPlane(o);
     }
 
-    @Test (expectedExceptions = TypePlaneNotCorrectHandlerException.class)
+    @Test(expectedExceptions = TypePlaneNotCorrectHandlerException.class)
     public void testCreatePlaneThrowExceptionTypePlaneNotCorrect() {
-        String stringDataPlane = "PRIVATE_PLANE; testPlane2;    1500; 980; 1500; 198";
+        String[] stringDataPlane = {"PRIVATE_PLANE", "testPlane2", "1500", "980", "1500", "198"};
         Plane plane = CREATOR.createPlane(stringDataPlane);
     }
 }

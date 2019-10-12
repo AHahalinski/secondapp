@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class Airline {
 
-    private static Airline airline;
+    private static volatile Airline instance;
     private List<Plane> planes;
     private String nameCompany;
     private static Logger logger = LogManager.getLogger(Airline.class.getName());
@@ -26,11 +26,19 @@ public class Airline {
     }
 
     public static Airline getInstance(String nameCompany) {
-        if (airline == null) {
-            airline = new Airline(nameCompany);
+        Airline localInstance = instance;
+
+        if (localInstance == null) {
+            synchronized (Airline.class) {
+                localInstance = instance;
+
+                if (localInstance == null) {
+                    instance = localInstance = new Airline(nameCompany);
+                }
+            }
         }
         logger.info("Create 'Airline'");
-        return airline;
+        return localInstance;
     }
 
     public String getNameCompany() {
