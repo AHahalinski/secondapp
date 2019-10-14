@@ -59,34 +59,25 @@ public abstract class Plane {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || !(o instanceof Plane)) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Plane)) return false;
 
         Plane plane = (Plane) o;
 
-        return maxDistance == plane.maxDistance &&
-                speed == plane.speed &&
-                fuelConsumption == plane.fuelConsumption &&
-                type == plane.type &&
-                boardName.equals(plane.boardName);
+        if (getMaxDistance() != plane.getMaxDistance()) return false;
+        if (getSpeed() != plane.getSpeed()) return false;
+        if (getFuelConsumption() != plane.getFuelConsumption()) return false;
+        if (getType() != plane.getType()) return false;
+        return getBoardName() != null ? getBoardName().equals(plane.getBoardName()) : plane.getBoardName() == null;
     }
 
     @Override
     public int hashCode() {
-        int prime = 31;
-        int result = 1;
-
-        result = result + prime * type.hashCode();
-        result = result * prime + boardName.hashCode();
-        result = result * prime + maxDistance;
-        result = result * prime + speed;
-        result = result * prime + fuelConsumption;
-
+        int result = getType() != null ? getType().hashCode() : 0;
+        result = 31 * result + (getBoardName() != null ? getBoardName().hashCode() : 0);
+        result = 31 * result + getMaxDistance();
+        result = 31 * result + getSpeed();
+        result = 31 * result + getFuelConsumption();
         return result;
     }
 
